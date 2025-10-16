@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shipment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -23,7 +24,8 @@ class ShipmentController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('shipments.create', compact('users'));
     }
 
     /**
