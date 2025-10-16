@@ -6,6 +6,7 @@ use App\Http\Requests\NewShipmentRequest;
 use App\Models\Shipment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ShipmentController extends Controller
 {
@@ -14,8 +15,11 @@ class ShipmentController extends Controller
      */
     public function index()
     {
+        $unassigned = Cache::remember('unassigned_shipments', 600,
+           fn() => Shipment::where(['status' => Shipment::STATUS_UNASSIGNED])->get());
+
         return view('shipments.index', [
-            'shipments' => Shipment::all(),
+            'shipments' => $unassigned,
         ]);
     }
 
@@ -44,7 +48,7 @@ class ShipmentController extends Controller
      */
     public function show(Shipment $shipment)
     {
-        //
+        return view('shipments.show', compact('shipment'));
     }
 
     /**
