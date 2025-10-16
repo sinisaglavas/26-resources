@@ -24,7 +24,7 @@ class ShipmentFactory extends Factory
             'to_city' => $this->faker->city(),
             'to_country' => $this->faker->country(),
             'price' => $this->faker->randomFloat(2, 10, 500), // npr. 145.75
-            'status' => $this->faker->randomElement(['pending', 'in_transit', 'delivered', 'cancelled']),
+            'status' => $this->faker->randomElement(['in_progress', 'unassigned', 'completed', 'problem']),
             'user_id' => User::factory(), // povezuje shipment sa nekim korisnikom
             'details' => $this->faker->paragraph(2), // dodatne informacije
         ];

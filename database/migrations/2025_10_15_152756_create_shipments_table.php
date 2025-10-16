@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('to_city', 64);
             $table->string('to_country', 64);
             $table->integer('price');
-            $table->string('status', 10);
+            $table->string('status', 12);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('details');
             $table->timestamps();

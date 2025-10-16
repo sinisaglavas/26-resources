@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NewShipmentRequest;
 use App\Models\Shipment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,9 +33,10 @@ class ShipmentController extends Controller
      * Store a newly created resource in storage.
      * POST: /shipments/create
      */
-    public function store(Request $request)
+    public function store(NewShipmentRequest $request)
     {
-        //
+        Shipment::create($request->validated());
+        return redirect()->route('shipments.index');
     }
 
     /**

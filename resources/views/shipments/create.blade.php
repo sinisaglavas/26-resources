@@ -45,13 +45,12 @@
                 <label for="status" class="form-label">Status</label>
                 <select name="status" id="status" class="form-select" required>
                     <option value="">-- Select Status --</option>
-                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="in_transit" {{ old('status') == 'in_transit' ? 'selected' : '' }}>In Transit</option>
-                    <option value="delivered" {{ old('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                    <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                    @foreach(\App\Models\Shipment::ALLOWED_STATUS as $status)
+                        <option value="{{ $status }}">{{ $status }}</option>
+                    @endforeach
+                    <option value="bla">bla</option>
                 </select>
             </div>
-
             <div class="mb-3">
                 <label for="user_id" class="form-label">User</label>
                 <select name="user_id" id="user_id" class="form-select" required>
@@ -66,7 +65,7 @@
 
             <div class="mb-3">
                 <label for="details" class="form-label">Details</label>
-                <textarea name="details" id="details" class="form-control" rows="4">{{ old('details') }}</textarea>
+                <textarea name="details" id="details" class="form-control" rows="4" maxlength="1000">{{ old('details') }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Create Shipment</button>
