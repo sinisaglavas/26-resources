@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Session\CacheBasedSessionHandler;
+use Illuminate\Support\Facades\Cache;
 
 class Shipment extends Model
 {
@@ -35,6 +37,17 @@ class Shipment extends Model
         'user_id',
         'details'
     ];
+
+    public static function booted() // hvatamo dogadjaj - upisivanje novog shipment-a u bazu, bilo gde u aplikaciji da se desi upis
+    {
+        static::created(function ($shipment){
+            if ($shipment->status === self::STATUS_UNASSIGNED)
+            {
+                Cache::forget('unassigned_shipments'); // obrisi kes memoriju prilikom upisa za unassigned_shipments
+            }
+        });
+    }
+
     // mutator - proverava da li je vrednost dobra - u funkciji mora biti naziv setImePoljaAttribute
     // funkcija se ne poziva
     public function setStatusAttribute($status)

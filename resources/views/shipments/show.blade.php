@@ -13,7 +13,9 @@
                 <p class="text-gray-600 font-medium">${{ number_format($shipment->price, 2) }}</p>
                 <div>
                     @foreach($shipment->documents as $document)
-                        <a href="">{{ $document->document_name }}</a>
+                  {{-- <a target="_blank" href="{{ Storage::url('documents/' . $document->document_name) }}">{{ $document->document_name }}</a> --}}
+                        <a target="_blank" href="/storage/documents/{{ $document->document_name }}">{{ $document->document_name }}</a>
+                        <br>
                     @endforeach
                 </div>
             </div>
