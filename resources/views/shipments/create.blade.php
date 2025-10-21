@@ -53,21 +53,8 @@
                     @foreach(\App\Models\Shipment::ALLOWED_STATUS as $status)
                         <option value="{{ $status }}">{{ $status }}</option>
                     @endforeach
-                    <option value="bla">bla</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="user_id" class="form-label">User</label>
-                <select name="user_id" id="user_id" class="form-select" required>
-                    <option value="">-- Select User --</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
             <div class="mb-3">
                 <label for="details" class="form-label">Details</label>
                 <textarea name="details" id="details" class="form-control" rows="4" maxlength="1000">{{ old('details') }}</textarea>

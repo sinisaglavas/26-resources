@@ -7,19 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class NewShipmentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -30,7 +17,6 @@ class NewShipmentRequest extends FormRequest
             'to_country' => 'required|string|max:64',
             'price' => 'required|numeric|min:0',
             'status' => 'required|string|in:in_progress,unassigned,completed,problem',
-            'user_id' => 'required|exists:users,id',
             'details' => 'required|string|max:1000',
             'documents' => 'required|array', // da bi radili validaciju za svaki dokument u nizu potreban je jos jedan red ispod
             'document.*' => 'file|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:10240', // document.* se odnosi na svaki element u nizu
