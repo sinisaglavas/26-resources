@@ -11,6 +11,11 @@
                 <p class="text-gray-600 font-medium">Status: {{ $shipment->status }}</p>
                 <p class="text-gray-600 font-medium">Details: {{ $shipment->details }}</p>
                 <p class="text-gray-600 font-medium">${{ number_format($shipment->price, 2) }}</p>
+                <div>
+                    @foreach($shipment->documents as $document)
+                        <a href="">{{ $document->document_name }}</a>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

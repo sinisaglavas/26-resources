@@ -32,6 +32,8 @@ class NewShipmentRequest extends FormRequest
             'status' => 'required|string|in:in_progress,unassigned,completed,problem',
             'user_id' => 'required|exists:users,id',
             'details' => 'required|string|max:1000',
+            'documents' => 'required|array', // da bi radili validaciju za svaki dokument u nizu potreban je jos jedan red ispod
+            'document.*' => 'file|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:10240', // document.* se odnosi na svaki element u nizu
         ];
     }
 }

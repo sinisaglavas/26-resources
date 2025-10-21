@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewShipmentRequest;
 use App\Models\Shipment;
+use App\Models\ShipmentDocument;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -39,8 +40,36 @@ class ShipmentController extends Controller
      */
     public function store(NewShipmentRequest $request)
     {
-        Shipment::create($request->validated());
-        return redirect()->route('shipments.index');
+        $shipment = Shipment::create($request->validated());
+
+        $fileTypes = [
+            'application/pdf', // pdf
+            'application/msword', // doc
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' // docx
+        ];
+
+        foreach ($request->file('documents') as $document)
+        {
+            if (str_starts_with($document->getMimeType(), 'image/')) {
+                $extension = $document->getClientOriginalExtension();
+                $fileName = uniqid().'.'.$extension;
+                $path = $document->storeAs("documents/$shipment->id", $fileName, 'public'); // storage/app/public
+
+                dd($path);
+            } elseif(in_array($document->getMimeType(), $fileTypes)) {
+                $extension = $document->getClientOriginalExtension();
+                $fileName = uniqid().'.'.$extension;
+                $path = $document->storeAs("documents/$shipment->id", $fileName, 'public'); // storage/app/public
+
+                $path = str_replace('documents/', '', $path); // sklanjamo prefiks 'documents/' da se ne upisuje u bazu
+
+                ShipmentDocument::create([
+                    'shipment_id' => $shipment->id,
+                    'document_name' => $path,
+                ]);
+            }
+        }
+         return redirect()->route('shipments.index');
     }
 
     /**

@@ -47,6 +47,11 @@ class Shipment extends Model
         $this->attributes['status'] = strtolower($status);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(ShipmentDocument::class, 'shipment_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id');

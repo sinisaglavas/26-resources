@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Create New Shipment</h2>
 
-        <form action="{{ route('shipments.store') }}" method="POST" class="shadow p-4 rounded bg-light">
+        <form action="{{ route('shipments.store') }}" enctype="multipart/form-data" method="POST" class="shadow p-4 rounded bg-light">
             @csrf
 
             <div class="mb-3">
@@ -34,6 +34,11 @@
                     <label for="to_country" class="form-label">To Country</label>
                     <input type="text" name="to_country" id="to_country" class="form-control" value="{{ old('to_country') }}" required>
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="documents" class="form-label">Choose a Picture</label>
+                <input type="file" name="documents[]" id="documents" class="form-control" multiple required> {{-- documents[] pravi niz --}}
             </div>
 
             <div class="mb-3">
