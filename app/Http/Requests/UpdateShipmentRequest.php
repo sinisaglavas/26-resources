@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateShipmentRequest extends FormRequest
 {
@@ -16,8 +18,14 @@ class UpdateShipmentRequest extends FormRequest
             'to_country' => 'required|string|max:64',
             'price' => 'required|numeric|min:0',
             'status' => 'required|string|in:in_progress,unassigned,completed,problem',
-            'user_id' => 'required|integer|exists:users,id',
             'details' => 'required|string|max:1000',
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id') // proveri da li postoji korisnik u tabeli users
+                ->where(function ($query){ // pisemo pod query koji proverava da li je njegova uloga trucker
+                    $query->where('role', User::ROLE_TRUCKER);
+                })
+            ]
         ];
     }
 }
