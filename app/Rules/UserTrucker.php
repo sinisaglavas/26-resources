@@ -11,7 +11,7 @@ class UserTrucker implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // pravilo koje proverava da li je korisnik 'trucker' - $value == 'id' korisnika
-        $isTrucker = User::where('id', $value)->where('role', 'trucker')->exists();
+        $isTrucker = User::where('id', $value)->where('role', User::ROLE_TRUCKER)->exists();
 
         if (!$isTrucker)
         {

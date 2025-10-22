@@ -9,7 +9,7 @@
                 <div class="bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
                     <h4 class="text-lg font-semibold text-gray-800 mb-2">{{ $shipment->title }}</h4>
                     <p class="text-gray-600 font-medium">${{ number_format($shipment->price, 2) }}</p>
-                    <p class="text-gray-600 font-medium">Driver: {{ $shipment->user->name }}</p>
+                    <p class="text-gray-600 font-medium">Driver: {{ $shipment->user->name ?? ''}}</p>
                     <a href="{{ route('shipments.show', ['shipment' => $shipment->id]) }}">View shipment</a>
                 </div>
             @endforeach

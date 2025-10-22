@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Rules\UserClient;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NewShipmentRequest extends FormRequest
@@ -20,6 +20,7 @@ class NewShipmentRequest extends FormRequest
             'details' => 'required|string|max:1000',
             'documents' => 'required|array', // da bi radili validaciju za svaki dokument u nizu potreban je jos jedan red ispod
             'document.*' => 'file|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:10240', // document.* se odnosi na svaki element u nizu
+            'client_id' => ['required', new UserClient()],
         ];
     }
 }

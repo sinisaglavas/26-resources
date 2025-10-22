@@ -45,7 +45,13 @@
                 <label for="price" class="form-label">Price ($)</label>
                 <input type="number" step="0.01" name="price" id="price" class="form-control" value="{{ old('price') }}" required>
             </div>
-
+            @if($errors->has('client_id'))
+                <p style="color: red;">{{ $errors->first() }}</p>
+            @endif
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Client ID</label>
+                <input type="number" name="client_id" id="client_id" class="form-control" value="{{ old('client_id') }}" min="1" required>
+            </div>
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select name="status" id="status" class="form-select" required>
@@ -53,7 +59,6 @@
                     @foreach(\App\Models\Shipment::ALLOWED_STATUS as $status)
                         <option value="{{ $status }}">{{ $status }}</option>
                     @endforeach
-                    <option value="bla">bla</option>
                 </select>
             </div>
 

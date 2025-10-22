@@ -56,11 +56,18 @@
                 </select>
             </div>
             @if($errors->has('user_id'))
-                <p style="color: red;">{{ $errors->first() }}</p>
+                <p style="color: red;">{{ $errors->first('user_id') }}</p>
             @endif
             <div class="mb-3">
-                <label for="user_id" class="form-label">Trucker</label>
+                <label for="user_id" class="form-label">Trucker ID</label>
                 <input type="number" name="user_id" id="user_id" class="form-control" value="{{ $shipment->user_id ?? '' }}" min="1" required>
+            </div>
+            @if($errors->has('client_id'))
+                <p style="color: red;">{{ $errors->first('client_id') }}</p>
+            @endif
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Client ID</label>
+                <input type="number" name="client_id" id="client_id" class="form-control" value="{{ $shipment->client_id ?? '' }}" min="1" required>
             </div>
             <div class="mb-3">
                 <label for="details" class="form-label">Details</label>
