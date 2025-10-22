@@ -55,6 +55,9 @@
                     @endforeach
                 </select>
             </div>
+            @if($errors->has('user_id'))
+                <p style="color: red;">{{ $errors->first() }}</p>
+            @endif
             <div class="mb-3">
                 <label for="user_id" class="form-label">Trucker</label>
                 <input type="number" name="user_id" id="user_id" class="form-control" value="{{ $shipment->user_id ?? '' }}" min="1" required>

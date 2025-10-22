@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Rules\UserTrucker;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,13 +20,7 @@ class UpdateShipmentRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'status' => 'required|string|in:in_progress,unassigned,completed,problem',
             'details' => 'required|string|max:1000',
-            'user_id' => [
-                'required',
-                Rule::exists('users', 'id') // proveri da li postoji korisnik u tabeli users
-                ->where(function ($query){ // pisemo pod query koji proverava da li je njegova uloga trucker
-                    $query->where('role', User::ROLE_TRUCKER);
-                })
-            ]
+            'user_id' => ['required', new UserTrucker(),]
         ];
     }
 }
