@@ -32,6 +32,8 @@ class ShipmentController extends Controller
      */
     public function create()
     {
+        Gate::authorize('view', Shipment::class); // proverava da li korisnik (admin) ima pravo da vidi kreiranje shipment-a
+
         $users = User::all();
         return view('shipments.create', compact('users'));
     }
@@ -42,7 +44,7 @@ class ShipmentController extends Controller
      */
     public function store(NewShipmentRequest $request)
     {
-        Gate::authorize('create', Shipment::class); // proverava da li korisnik ima pravo da kreira shipment
+        Gate::authorize('create', Shipment::class); // proverava da li korisnik (admin) ima pravo da kreira shipment
 
         $shipment = Shipment::create($request->validated());
 

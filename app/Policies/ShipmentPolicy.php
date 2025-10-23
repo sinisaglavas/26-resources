@@ -19,9 +19,9 @@ class ShipmentPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Shipment $shipment): bool
+    public function view(User $user): bool
     {
-        return false;
+        return $user->role === User::ROLE_ADMINISTRATOR;
     }
 
     /**
