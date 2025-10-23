@@ -8,7 +8,9 @@ use App\Models\Shipment;
 use App\Models\ShipmentDocument;
 use App\Models\User;
 use App\Traits\ImageUploadTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 
 class ShipmentController extends Controller
 {
@@ -40,6 +42,8 @@ class ShipmentController extends Controller
      */
     public function store(NewShipmentRequest $request)
     {
+        Gate::authorize('create', Shipment::class); // proverava da li korisnik ima pravo da kreira shipment
+
         $shipment = Shipment::create($request->validated());
 
         $fileTypes = [
