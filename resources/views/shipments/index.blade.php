@@ -11,6 +11,17 @@
                     <p class="text-gray-600 font-medium">${{ number_format($shipment->price, 2) }}</p>
                     <p class="text-gray-600 font-medium">Driver: {{ $shipment->user->name ?? ''}}</p>
                     <a href="{{ route('shipments.show', ['shipment' => $shipment->id]) }}">View shipment</a>
+                    <form method="POST" action="{{ route('shipments.assignUser', ['shipment' => $shipment->id]) }}" class="w-50">
+                        @csrf
+                        <input type="hidden" name="shipment_id" value="{{ $shipment->id }}">
+                        <select name="user" class="form-control mt-2">
+                            <option selected disabled>None</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit">Assigned</button>
+                    </form>
                 </div>
             @endforeach
         </div>

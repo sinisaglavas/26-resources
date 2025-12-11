@@ -8,7 +8,8 @@ use App\Models\Shipment;
 use App\Models\ShipmentDocument;
 use App\Models\User;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
@@ -23,6 +24,7 @@ class ShipmentController extends Controller
 
         return view('shipments.index', [
             'shipments' => $unassigned,
+            'users' => User::all(),
         ]);
     }
 
@@ -118,5 +120,21 @@ class ShipmentController extends Controller
     public function destroy(Shipment $shipment)
     {
         //
+    }
+
+    public function assignUser(Request $request, Shipment $shipment): RedirectResponse
+    {
+        $validate = $request->validate([
+            'user' => 'required|integer|exists:users,id',
+        ]);
+
+        $shipment->user_id = $validate['user'];
+        $shipment->status = Shipment::STATUS_IN_PROGRESS;
+        $shipment->save();
+
+        Cache::forget('unassigned_shipments');
+
+
+        return redirect()->back();
     }
 }
