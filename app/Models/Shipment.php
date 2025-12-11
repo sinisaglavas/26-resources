@@ -47,12 +47,8 @@ class Shipment extends Model
             }
         });
 
-        static::updated(function ($shipment){
-            Cache::forget('unassigned_shipments');
-        });
-        static::deleted(function ($shipment){
-            Cache::forget('unassigned_shipments');
-        });
+        static::updated(fn ($shipment) => Cache::forget('unassigned_shipments'));
+        static::deleted(fn ($shipment) => Cache::forget('unassigned_shipments'));
     }
 
     // mutator - proverava da li je vrednost dobra - u funkciji mora biti naziv setImePoljaAttribute
