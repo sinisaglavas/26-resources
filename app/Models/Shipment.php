@@ -37,19 +37,9 @@ class Shipment extends Model
         'details',
         'client_id',
     ];
-    // hvatamo dogadjaj - upisivanje novog shipment-a u bazu, bilo gde u aplikaciji da se desi upis novog shipment-a
-    public static function booted()
-    {
-        static::created(function ($shipment){
-            if ($shipment->status === self::STATUS_UNASSIGNED)
-            {
-                Cache::forget('unassigned_shipments'); // obrisi kes memoriju prilikom upisa za unassigned_shipments
-            }
-        });
 
-        static::updated(fn ($shipment) => Cache::forget('unassigned_shipments'));
-        static::deleted(fn ($shipment) => Cache::forget('unassigned_shipments'));
-    }
+    // deo logike koja je bila ovde premestena je na app\Observers\ShipmentObserver
+    // i to je povezano u app\Providers\AppServiceProvider
 
     // mutator - proverava da li je vrednost dobra - u funkciji mora biti naziv setImePoljaAttribute
     // funkcija se ne poziva
