@@ -69,4 +69,9 @@ class Shipment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function scopeUnassignedShipments($query)
+    {
+        return $query->where('status', self::STATUS_UNASSIGNED);
+    }
 }
