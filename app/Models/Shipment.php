@@ -37,8 +37,8 @@ class Shipment extends Model
         'details',
         'client_id',
     ];
-
-    public static function booted() // hvatamo dogadjaj - upisivanje novog shipment-a u bazu, bilo gde u aplikaciji da se desi upis novog shipment-a
+    // hvatamo dogadjaj - upisivanje novog shipment-a u bazu, bilo gde u aplikaciji da se desi upis novog shipment-a
+    public static function booted()
     {
         static::created(function ($shipment){
             if ($shipment->status === self::STATUS_UNASSIGNED)

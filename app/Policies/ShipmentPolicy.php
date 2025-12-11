@@ -19,15 +19,20 @@ class ShipmentPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, Shipment $shipment): bool
     {
-        return $user->role === User::ROLE_ADMINISTRATOR;
+        return $user->role === User::ROLE_ADMINISTRATOR || $user->id === $shipment->client_id;
     }
 
     /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
+    {
+        return $user->role === User::ROLE_ADMINISTRATOR;
+    }
+
+    public function canViewEdit(User $user): bool
     {
         return $user->role === User::ROLE_ADMINISTRATOR;
     }
