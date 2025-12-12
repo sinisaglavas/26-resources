@@ -16,13 +16,13 @@ class ShipmentsAssignedList extends Component
 
     public function increment()
     {
-        $this->count++;
+        $this->count += $this->amount;
     }
 
     public function decrement()
     {
         if ($this->count > 0) {
-            $this->count--;
+            $this->count -= $this->amount;
         }
     }
 }
