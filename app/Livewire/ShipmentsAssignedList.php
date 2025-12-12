@@ -17,4 +17,11 @@ class ShipmentsAssignedList extends Component
     {
         $this->count++;
     }
+
+    public function decrement()
+    {
+        if ($this->count > 0) {
+            $this->count--;
+        }
+    }
 }
