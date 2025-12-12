@@ -6,4 +6,5 @@
     <input class="border" type="number" min="1"
             wire:model.live.debounce="amount">
     <p>Amount is: {{ $amount }}</p>
+    <p>{{ $error }}</p>
 </div>
