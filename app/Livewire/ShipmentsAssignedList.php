@@ -21,7 +21,8 @@ class ShipmentsAssignedList extends Component
 
     public function decrement()
     {
-        if ($this->count > 0) {
+        $result = $this->count - $this->amount;
+        if ($result > 0) {
             $this->count -= $this->amount;
         }
     }
