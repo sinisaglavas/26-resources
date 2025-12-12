@@ -7,6 +7,7 @@ use Livewire\Component;
 class ShipmentsAssignedList extends Component
 {
     public int $count = 0;
+    public int $amount = 1;
 
     public function render()
     {
