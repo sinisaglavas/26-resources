@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const TABLE = 'users';
+
     protected $fillable = [
         'name',
         'email',

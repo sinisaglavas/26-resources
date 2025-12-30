@@ -1,10 +1,11 @@
 <div>
-    <p>Iznos: {{ $count }}</p>
-    <button wire:click="increment">Povecaj</button>
-    <button wire:click="decrement">Smanji</button>
+    <p>Iznos: <span class="{{ $count >= 5000 ? 'red' : '' }}">{{ $count }}</span> </p>
+    <button class="btn border" wire:click="increment">Povecaj</button>
+    <button class="btn border" wire:click="decrement">Smanji</button>
 
     <input class="border" type="number" min="1"
             wire:model.live.debounce="amount">
-    <p>Amount is: {{ $amount }}</p>
+    <p>Kolicina: {{ $amount }}</p>
     <p>{{ $error }}</p>
+
 </div>

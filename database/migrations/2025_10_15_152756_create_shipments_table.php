@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Shipment;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shipments', function (Blueprint $table) {
+        Schema::create(Shipment::TABLE, function (Blueprint $table) {
             $table->id();
             $table->string('title', 128);
             $table->string('from_city', 64);
@@ -20,7 +22,7 @@ return new class extends Migration
             $table->string('to_country', 64);
             $table->integer('price');
             $table->string('status', 12);
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained(User::TABLE)->onDelete('cascade');
             $table->text('details');
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shipments');
+        Schema::dropIfExists(Shipment::TABLE);
     }
 };

@@ -11,6 +11,8 @@ class Shipment extends Model
     // koristimo fabrike da bazu napunimo dummy podacima
     use HasFactory;
 
+    const TABLE = 'shipments';
+
     protected $table = 'shipments';
 
     const STATUS_IN_PROGRESS = 'in_progress';
