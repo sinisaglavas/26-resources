@@ -12,12 +12,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 
 class ShipmentController extends Controller
 {
     use ImageUploadTrait;
 
-    public function index()
+    public function index(): View
     {
         $unassigned = Cache::remember('unassigned_shipments', 600,
            fn() => Shipment::unassignedShipments()->get());
@@ -32,7 +33,7 @@ class ShipmentController extends Controller
      * Show the form for creating a new resource.
      * GET: /shipments/create
      */
-    public function create()
+    public function create(): View
     {
         Gate::authorize('view', Shipment::class); // proverava da li korisnik (admin) ima pravo da vidi kreiranje shipment-a
 
@@ -44,7 +45,7 @@ class ShipmentController extends Controller
      * Store a newly created resource in storage.
      * POST: /shipments/create
      */
-    public function store(NewShipmentRequest $request)
+    public function store(NewShipmentRequest $request): RedirectResponse
     {
         Gate::authorize('create', Shipment::class); // proverava da li korisnik (admin) ima pravo da kreira shipment
 
@@ -87,7 +88,7 @@ class ShipmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Shipment $shipment)
+    public function show(Shipment $shipment): View
     {
         Gate::authorize('view', $shipment);
 
@@ -97,7 +98,7 @@ class ShipmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Shipment $shipment)
+    public function edit(Shipment $shipment): View
     {
         Gate::authorize('canViewEdit', Shipment::class);
 
@@ -107,7 +108,7 @@ class ShipmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateShipmentRequest $request, Shipment $shipment)
+    public function update(UpdateShipmentRequest $request, Shipment $shipment): RedirectResponse
     {
         $shipment->update($request->validated());
 
