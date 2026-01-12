@@ -4,8 +4,11 @@
     <button class="btn border" wire:click="decrement">Smanji</button>
 
     <input class="border" type="number" min="1"
-            wire:model.live.debounce="amount">
+            wire:blur="validateAmount" wire:model.live.debounce="amount">
     <p>Kolicina: {{ $amount }}</p>
     <p>{{ $error }}</p>
 
+    <style>
+        .red { color: red; }
+    </style>
 </div>

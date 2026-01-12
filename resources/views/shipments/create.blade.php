@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+
+    <livewire:create-shipment />
+
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Create New Shipment</h2>
 

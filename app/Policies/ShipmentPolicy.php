@@ -24,6 +24,11 @@ class ShipmentPolicy
         return $user->role === User::ROLE_ADMINISTRATOR || $user->id === $shipment->client_id;
     }
 
+    public function canViewCreationPage(User $user): bool
+    {
+        return $user->role === User::ROLE_ADMINISTRATOR;
+    }
+
     /**
      * Determine whether the user can create models.
      */
