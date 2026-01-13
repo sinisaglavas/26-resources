@@ -1,5 +1,9 @@
-<div>
-    <form action="">
+<div class="container mt-3">
+    @foreach($errors->all() as $error)
+        {{ $error }}
+    @endforeach
+    <form wire:submit="submit">
+        <p>{{ $test }}</p>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input wire:model.live.debounce="title" type="text" id="title" class="form-control" required>
@@ -42,9 +46,20 @@
             </select>
         </div>
         <div class="mb-3">
-            <p>{{ $clientError }}</p>
+            @error('clientId')
+                <p>{{ $message }}</p>
+            @enderror
             <label for="client_id" class="form-label">Client</label>
             <input wire:model="clientId" wire:blur="validateUser" type="number" id="client_id" class="form-control" min="1" required>
         </div>
+        <div class="mb-3">
+            <label for="documents" class="form-label">Choose a Picture</label>
+            <input type="file" wire:model="documents" id="documents" class="form-control" multiple required>
+        </div>
+        <div class="mb-3">
+            <label for="details" class="form-label">Details</label>
+            <textarea wire:model="details" id="details" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Create shipment</button>
     </form>
 </div>

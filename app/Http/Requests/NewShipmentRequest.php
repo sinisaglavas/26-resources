@@ -11,16 +11,16 @@ class NewShipmentRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:128',
-            'from_city' => 'required|string|max:64',
-            'from_country' => 'required|string|max:64',
-            'to_city' => 'required|string|max:64',
-            'to_country' => 'required|string|max:64',
+            'fromCity' => 'required|string|max:64',
+            'fromCountry' => 'required|string|max:64',
+            'toCity' => 'required|string|max:64',
+            'toCountry' => 'required|string|max:64',
             'price' => 'required|numeric|min:0',
             'status' => 'required|string|in:in_progress,unassigned,completed,problem',
             'details' => 'required|string|max:1000',
-            'documents' => 'required|array', // da bi radili validaciju za svaki dokument u nizu potreban je jos jedan red ispod
-            'document.*' => 'file|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:10240', // document.* se odnosi na svaki element u nizu
-            'client_id' => ['required', new UserClient()],
+            'documents' => 'required|array',
+            'documents.*' => 'file|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:10240',
+            'clientId' => ['required', new UserClient()],
         ];
     }
 }
